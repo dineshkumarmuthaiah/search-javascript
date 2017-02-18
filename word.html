@@ -1,32 +1,41 @@
 <html>
 <head>
     <title>search word</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 </head>
 <body>
-    <p id = "str">hi this is dinesh</p>
-<br>
-<input type = "text" value = "" id = "txt1"/>
-<button onclick = "myFunction()"> Search </button>
-
-<p id="word">Display the result here.</p>
-<script>
-    function myFunction()
-    {
-        var myString = document.getElementById("str").innerHTML;
-        var myWord = document.getElementById("txt1").value;
-        var myPattern = new RegExp('.'+myWord,'g');
-
-        var myResult = myString.split(" ");
-
-       
-        for(var i=0; i<myResult.length; i++) {
-            var result = myResult[i].match(myPattern);
-            if(result) break;
+    <div class="container">
+        <h2>Find a word</h2>
+        <form class="form-horizontal">
+            <div class="form-group">
+                <label for="para">Paragraph:</label>
+                <textarea class="form-control" rows="5" id="para"></textarea>
+            </div>
+            <div class="form-group">
+                <div class="col-sm-6">
+                    <input type="text" class="form-control" id="search" >
+                    <button onclick="myFunc()"  type="button" class="btn btn-default">Search</button>
+                </div>
+            </div>
+            <p id="count"></p>
+        </form>
+    </div>
+    <script>
+        function myFunc() {
+            var myString = document.getElementById("para").value;
+            var myWord = document.getElementById("search").value;
+            var myPattern = new RegExp('(\\w*' + myWord + '\\w*)', 'gi');
+            var matches = myString.match(myPattern);
+                if (matches === null) {
+                    document.getElementById("count").innerHTML = "No results"; 
+                    return;
+                }
+                document.getElementById("count").innerHTML = matches + " - " + matches.length + " result found.";
         }
-
-        document.getElementById("word").innerHTML = myResult;
-
-     }
-</script>
+    </script>
 </body>
 </html>
